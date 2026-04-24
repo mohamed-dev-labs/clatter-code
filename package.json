@@ -1,0 +1,25 @@
+{
+  "name": "clatter-code",
+  "version": "1.0.0",
+  "description": "An open-source CLI coding assistant built with Node.js and Rust.",
+  "main": "src/index.js",
+  "bin": {
+    "clatter": "bin/clatter.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node bin/clatter.js",
+    "build:rust": "cd rust-engine && cargo build --release",
+    "install:local": "npm install && npm run build:rust"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.12",
+    "chalk": "^5.3.0",
+    "ora": "^7.0.1",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.2",
+    "fs-extra": "^11.2.0",
+    "execa": "^8.0.1"
+  }
+}

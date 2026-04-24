@@ -1,0 +1,10 @@
+[package]
+name = "clatter-engine"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[[bin]]
+name = "clatter-engine"
+path = "src/main.rs"
