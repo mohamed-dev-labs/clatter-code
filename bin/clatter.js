@@ -14,7 +14,7 @@ const program = new Command();
 program
   .name('clatter')
   .description('Clatter Code: An open-source CLI coding assistant (Inspired by OpenCode & Bun)')
-  .version('1.2.0');
+  .version('1.3.0');
 
 program
   .command('ui')
@@ -26,7 +26,7 @@ program
 program
   .command('chat')
   .description('Start a chat session with the AI (CLI mode)')
-  .option('-p, --provider <provider>', 'AI provider (openai, ollama)', 'openai')
+  .option('-p, --provider <provider>', 'AI provider (openai, ollama, lm-studio)', 'openai')
   .argument('[prompt]', 'Initial prompt')
   .action(async (prompt, options) => {
     const ai = new AIProvider(options.provider);
@@ -50,14 +50,7 @@ program
   .command('setup-ollama')
   .description('Integrate and setup Ollama for local AI execution')
   .action(async () => {
-    console.log(chalk.cyan('Checking for Ollama...'));
-    try {
-      await execa('ollama', ['--version']);
-      console.log(chalk.green('Ollama is already installed!'));
-    } catch (error) {
-      console.log(chalk.yellow('Ollama not found. Please install it from https://ollama.com'));
-    }
-    
+    console.log(chalk.cyan('Configuring Clatter Code to use Ollama...'));
     const envPath = path.join(process.cwd(), '.env');
     let envContent = '';
     if (await fs.pathExists(envPath)) {
@@ -68,6 +61,25 @@ program
       envContent += '\nAI_PROVIDER=ollama\nAI_MODEL=llama3\n';
       await fs.writeFile(envPath, envContent);
       console.log(chalk.green('Updated .env with Ollama configuration.'));
+    }
+  });
+
+program
+  .command('setup-lmstudio')
+  .description('Integrate and setup LM Studio for local AI execution')
+  .action(async () => {
+    console.log(chalk.cyan('Configuring Clatter Code to use LM Studio...'));
+    const envPath = path.join(process.cwd(), '.env');
+    let envContent = '';
+    if (await fs.pathExists(envPath)) {
+      envContent = await fs.readFile(envPath, 'utf8');
+    }
+    
+    if (!envContent.includes('AI_PROVIDER=lm-studio')) {
+      envContent += '\nAI_PROVIDER=lm-studio\nLM_STUDIO_ENDPOINT=http://localhost:1234/v1/chat/completions\n';
+      await fs.writeFile(envPath, envContent);
+      console.log(chalk.green('Updated .env with LM Studio configuration.'));
+      console.log(chalk.yellow('Note: Ensure LM Studio Local Server is running on port 1234.'));
     }
   });
 
@@ -85,7 +97,6 @@ program
     }
   });
 
-// Default action: launch TUI
 if (!process.argv.slice(2).length) {
   startTUI();
 }

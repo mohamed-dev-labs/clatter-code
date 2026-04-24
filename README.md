@@ -16,11 +16,11 @@ Inspired by the interactive experience of **OpenCode Interpreter** and the perfo
 Clatter Code is built on three core pillars:
 
 ### 1. The Hybrid Engine (Node.js + Rust)
-- **Node.js (The Brain):** Handles the CLI logic, AI provider orchestration (OpenAI, Anthropic, Ollama), and the interactive TUI.
+- **Node.js (The Brain):** Handles the CLI logic, AI provider orchestration (OpenAI, Anthropic, Ollama, LM Studio), and the interactive TUI.
 - **Rust (The Muscle):** A dedicated binary (`clatter-engine`) handles performance-critical tasks like recursive file system indexing, deep-content searching, and codebase analysis. This ensures that even in massive projects, Clatter Code remains as fast as Bun.
 
-### 2. Local-First AI (Ollama Integration)
-We believe in privacy and autonomy. Clatter Code features deep integration with **Ollama**, allowing you to run powerful models like `llama3`, `mistral`, or `codegemma` locally on your hardware without sending your code to external servers.
+### 2. Local-First AI (Ollama & LM Studio)
+We believe in privacy and autonomy. Clatter Code features deep integration with **Ollama** and **LM Studio**, allowing you to run powerful models like `llama3`, `mistral`, or `codegemma` locally on your hardware without sending your code to external servers.
 
 ### 3. Rich Graphical TUI
 Inspired by **OpenCode**, Clatter Code isn't just a simple prompt. It features a full-screen terminal dashboard with:
@@ -55,18 +55,28 @@ Simply type `clatter` to launch the full graphical TUI.
 clatter
 ```
 
-### 2. Setting up Local AI (Ollama)
+### 2. Setting up Local AI (Ollama & LM Studio)
 To use Clatter Code without an internet connection or API keys:
+
+**For Ollama:**
 ```bash
 clatter setup-ollama
 ```
-This command will detect your Ollama installation and configure Clatter Code to use local models by default.
+
+**For LM Studio:**
+```bash
+clatter setup-lmstudio
+```
+These commands will configure Clatter Code to use local models by default.
 
 ### 3. Command Line Mode
 If you prefer a traditional CLI experience for quick tasks:
 ```bash
-# Ask a quick coding question
+# Ask a quick coding question using Ollama
 clatter chat "How do I implement a binary search in Rust?" --provider ollama
+
+# Ask using LM Studio
+clatter chat "Explain quantum computing" --provider lm-studio
 
 # Use the Rust engine to list files in a large directory
 clatter list ./src
@@ -80,10 +90,11 @@ Clatter Code uses a `.env` file for configuration. You can manually edit it or u
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `AI_PROVIDER` | `openai` or `ollama` | `openai` |
+| `AI_PROVIDER` | `openai`, `ollama`, or `lm-studio` | `openai` |
 | `AI_MODEL` | The model to use (e.g., `gpt-4`, `llama3`) | `gpt-4` |
 | `AI_API_KEY` | Your provider API key | - |
 | `OLLAMA_ENDPOINT` | Local Ollama API URL | `http://localhost:11434/api/generate` |
+| `LM_STUDIO_ENDPOINT` | LM Studio API URL | `http://localhost:1234/v1/chat/completions` |
 
 ---
 
