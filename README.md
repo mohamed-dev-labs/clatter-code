@@ -6,6 +6,7 @@ Clatter Code is an open-source CLI coding assistant built with **Node.js** and *
 - **Local Execution**: Runs entirely on your machine.
 - **Hybrid Engine**: Uses Rust for performance-critical tasks.
 - **AI Integration**: Supports multiple AI providers (OpenAI, Anthropic) and **Ollama** for local execution.
+- **Graphical TUI**: A rich terminal interface inspired by OpenCode for a better user experience.
 - **Easy Installation**: One-liner setup script.
 
 ## Installation
@@ -25,7 +26,13 @@ chmod +x install.sh
 # Setup Ollama for local AI
 clatter setup-ollama
 
-# Start a chat session with Ollama
+# Launch the Graphical TUI (Default)
+clatter
+
+# Launch TUI explicitly
+clatter ui
+
+# Start a chat session with Ollama in CLI mode
 clatter chat "Write a hello world in Rust" --provider ollama
 
 # List files using the Rust engine

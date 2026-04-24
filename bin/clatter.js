@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs-extra';
 import { AIProvider } from '../src/core/ai.js';
+import { startTUI } from '../src/cli/tui.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const program = new Command();
@@ -13,11 +14,18 @@ const program = new Command();
 program
   .name('clatter')
   .description('Clatter Code: An open-source CLI coding assistant (Inspired by OpenCode & Bun)')
-  .version('1.1.0');
+  .version('1.2.0');
+
+program
+  .command('ui')
+  .description('Launch the Clatter Code Graphical TUI')
+  .action(() => {
+    startTUI();
+  });
 
 program
   .command('chat')
-  .description('Start a chat session with the AI')
+  .description('Start a chat session with the AI (CLI mode)')
   .option('-p, --provider <provider>', 'AI provider (openai, ollama)', 'openai')
   .argument('[prompt]', 'Initial prompt')
   .action(async (prompt, options) => {
@@ -33,7 +41,8 @@ program
         console.error(chalk.red('Error:'), error.message);
       }
     } else {
-      console.log(chalk.yellow('Interactive mode coming soon. Please provide a prompt for now.'));
+      console.log(chalk.yellow('Launching TUI...'));
+      startTUI();
     }
   });
 
@@ -46,13 +55,9 @@ program
       await execa('ollama', ['--version']);
       console.log(chalk.green('Ollama is already installed!'));
     } catch (error) {
-      console.log(chalk.yellow('Ollama not found. Installing Ollama...'));
-      console.log(chalk.dim('Running: curl -fsSL https://ollama.com/install.sh | sh'));
-      // In a real scenario, we would execute the install script.
-      console.log(chalk.blue('Please run: curl -fsSL https://ollama.com/install.sh | sh'));
+      console.log(chalk.yellow('Ollama not found. Please install it from https://ollama.com'));
     }
     
-    console.log(chalk.cyan('\nConfiguring Clatter Code to use Ollama...'));
     const envPath = path.join(process.cwd(), '.env');
     let envContent = '';
     if (await fs.pathExists(envPath)) {
@@ -63,14 +68,12 @@ program
       envContent += '\nAI_PROVIDER=ollama\nAI_MODEL=llama3\n';
       await fs.writeFile(envPath, envContent);
       console.log(chalk.green('Updated .env with Ollama configuration.'));
-    } else {
-      console.log(chalk.yellow('Ollama is already configured in .env'));
     }
   });
 
 program
   .command('list')
-  .description('List files using the Rust engine (Bun-speed performance)')
+  .description('List files using the Rust engine')
   .argument('[dir]', 'Directory to list', '.')
   .action(async (dir) => {
     try {
@@ -81,5 +84,10 @@ program
       console.error(chalk.red('Error running Rust engine:'), error.message);
     }
   });
+
+// Default action: launch TUI
+if (!process.argv.slice(2).length) {
+  startTUI();
+}
 
 program.parse();
