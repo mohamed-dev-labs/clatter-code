@@ -49,7 +49,20 @@ Launch the unified dashboard to monitor the agent's logic:
 clatter
 ```
 
-### 3. Automated Setup
+### 3. Clatter Package Manager (CPM)
+Manage skills and plugins just like `npm` or `npx`:
+```bash
+# Install a new skill
+clatter install @skill/web-search
+
+# Execute a skill directly
+clatter x @skill/web-search "Search for latest AI news"
+
+# List installed skills
+clatter pkgs
+```
+
+### 4. Automated Setup
 Configure your environment in seconds:
 ```bash
 clatter setup

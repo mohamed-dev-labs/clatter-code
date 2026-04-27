@@ -7,14 +7,16 @@ import { fileURLToPath } from 'url';
 import fs from 'fs-extra';
 import { Orchestrator } from '../src/core/orchestrator.js';
 import { startTUI } from '../src/cli/tui.js';
+import { CPM } from '../src/pkg/cpm.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const program = new Command();
+const cpm = new CPM();
 
 program
   .name('clatter')
   .description('Clatter Code: The Unified Agentic Orchestration Platform')
-  .version('3.0.0');
+  .version('3.1.0');
 
 program
   .command('ui')
@@ -34,11 +36,31 @@ program
   });
 
 program
+  .command('install <package>')
+  .description('Install a Clatter package/skill')
+  .action(async (pkg) => {
+    await cpm.install(pkg);
+  });
+
+program
+  .command('x <package> [args...]')
+  .description('Execute a Clatter package (like npx)')
+  .action(async (pkg, args) => {
+    await cpm.execute(pkg, args);
+  });
+
+program
+  .command('pkgs')
+  .description('List all installed Clatter packages')
+  .action(async () => {
+    await cpm.list();
+  });
+
+program
   .command('setup')
   .description('Automated setup for all providers and environments')
   .action(async () => {
     console.log(chalk.cyan('Starting Automated Combo Setup...'));
-    // Initialization logic here
     const envPath = path.join(process.cwd(), '.env');
     if (!(await fs.pathExists(envPath))) {
       await fs.writeFile(envPath, 'AI_PROVIDER=openai\nAI_MODEL=gpt-4\n');
