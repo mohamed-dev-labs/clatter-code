@@ -1,13 +1,11 @@
-# ⌬ Clatter Code: The Ultimate Open-Source AI Coding CLI
+# ⌬ Clatter Code: The Agentic CLI Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-v20+-green.svg)](https://nodejs.org/)
 [![Rust](https://img.shields.io/badge/Rust-v1.75+-orange.svg)](https://www.rust-lang.org/)
 [![Ollama](https://img.shields.io/badge/Ollama-Local_AI-blue.svg)](https://ollama.com/)
 
-**Clatter Code** is a high-performance, open-source AI coding assistant designed for the terminal. It bridges the gap between sophisticated AI orchestration and raw machine performance by combining the flexibility of **Node.js** with the blazing speed of **Rust**.
-
-Inspired by the interactive experience of **OpenCode Interpreter** and the performance-first philosophy of **Bun**, Clatter Code provides a rich Graphical TUI (Terminal User Interface) and a hybrid engine that runs entirely on your local machine.
+**Clatter Code** is a high-performance, open-source **Agentic CLI Platform**. It bridges the gap between autonomous AI reasoning and raw machine performance by integrating the agentic capabilities of **OpenManus**, the interactive structure of **OpenCode**, and the blazing speed of **Rust** (inspired by **Bun**).
 
 ---
 
@@ -15,78 +13,68 @@ Inspired by the interactive experience of **OpenCode Interpreter** and the perfo
 
 Clatter Code is built on three core pillars:
 
-### 1. The Hybrid Engine (Node.js + Rust)
-- **Node.js (The Brain):** Handles the CLI logic, AI provider orchestration (OpenAI, Anthropic, Ollama, LM Studio), and the interactive TUI.
-- **Rust (The Muscle):** A dedicated binary (`clatter-engine`) handles performance-critical tasks like recursive file system indexing, deep-content searching, and codebase analysis. This ensures that even in massive projects, Clatter Code remains as fast as Bun.
+### 1. The Agentic Core (Powered by OpenManus)
+- **Autonomous Reasoning:** Clatter Code doesn't just chat; it thinks. It can decompose complex tasks, execute shell commands, and iteratively refine its work.
+- **Hybrid Engine (Node.js + Rust):** Handles the orchestration and performance-critical tasks like recursive file system indexing and codebase analysis. This ensures that even in massive projects, Clatter Code remains as fast as Bun.
 
 ### 2. Local-First AI (Ollama & LM Studio)
 We believe in privacy and autonomy. Clatter Code features deep integration with **Ollama** and **LM Studio**, allowing you to run powerful models like `llama3`, `mistral`, or `codegemma` locally on your hardware without sending your code to external servers.
 
-### 3. Rich Graphical TUI
-Inspired by **OpenCode**, Clatter Code isn't just a simple prompt. It features a full-screen terminal dashboard with:
-- **Real-time Chat Log:** Beautifully formatted conversations.
-- **Project Explorer:** Visual representation of your codebase.
+### 3. Rich Agentic TUI
+Inspired by **OpenCode**, Clatter Code features a full-screen terminal dashboard designed for agent monitoring:
+- **Agent Thought Process:** Watch the agent think, plan, and execute in real-time.
+- **Project Structure:** Visual representation of your codebase.
 - **Interactive Input:** A dedicated command zone for seamless interaction.
 
 ---
 
 ## 🚀 Installation
 
-Clatter Code is designed to be installed with a single command. Our installer automatically checks for dependencies and builds the Rust engine for your specific architecture.
+Clatter Code is designed to be installed with a single command.
 
 ### The One-Liner Setup
 ```bash
 git clone https://github.com/mohamed-dev-labs/clatter-code.git && cd clatter-code && chmod +x install.sh && ./install.sh
 ```
 
-### What the installer does:
-1. **Dependency Check:** Verifies if Node.js and Rust are installed.
-2. **Environment Setup:** Installs necessary npm packages.
-3. **Rust Compilation:** Compiles the `rust-engine` in `--release` mode for maximum performance.
-4. **Global Linking:** Links the `clatter` command to your system path.
+### Uninstallation
+To remove Clatter Code and all its configurations:
+```bash
+clatter uninstall
+# OR
+./uninstall.sh
+```
 
 ---
 
 ## 🛠 Detailed Usage Guide
 
-### 1. Launching the Interface
-Simply type `clatter` to launch the full graphical TUI.
+### 1. Launching the Agentic TUI
+Simply type `clatter` to launch the full graphical dashboard.
 ```bash
 clatter
 ```
 
-### 2. Setting up Local AI (Ollama & LM Studio)
-To use Clatter Code without an internet connection or API keys:
-
-**For Ollama:**
+### 2. Running Autonomous Tasks
+You can give the agent a complex task directly from the CLI:
 ```bash
+clatter agent "Create a new Node.js project with Express and a basic CRUD for users"
+```
+
+### 3. Setting up Local AI
+```bash
+# For Ollama
 clatter setup-ollama
-```
 
-**For LM Studio:**
-```bash
+# For LM Studio
 clatter setup-lmstudio
-```
-These commands will configure Clatter Code to use local models by default.
-
-### 3. Command Line Mode
-If you prefer a traditional CLI experience for quick tasks:
-```bash
-# Ask a quick coding question using Ollama
-clatter chat "How do I implement a binary search in Rust?" --provider ollama
-
-# Ask using LM Studio
-clatter chat "Explain quantum computing" --provider lm-studio
-
-# Use the Rust engine to list files in a large directory
-clatter list ./src
 ```
 
 ---
 
 ## ⚙️ Configuration
 
-Clatter Code uses a `.env` file for configuration. You can manually edit it or use the built-in setup commands.
+Clatter Code uses a `.env` file for configuration.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -101,11 +89,6 @@ Clatter Code uses a `.env` file for configuration. You can manually edit it or u
 ## 🤝 Contributing
 
 Clatter Code is **Open Source**. We welcome contributions of all kinds!
-1. Fork the Project.
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the Branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.
 
 ---
 
@@ -114,4 +97,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-**Clatter Code** — *Code at the speed of thought, powered by Rust.*
+**Clatter Code** — *Autonomous coding at the speed of Rust.*

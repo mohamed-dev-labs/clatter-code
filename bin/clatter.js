@@ -13,14 +13,33 @@ const program = new Command();
 
 program
   .name('clatter')
-  .description('Clatter Code: An open-source CLI coding assistant (Inspired by OpenCode & Bun)')
-  .version('1.3.0');
+  .description('Clatter Code: The Agentic CLI Platform (Inspired by OpenManus, OpenCode & Bun)')
+  .version('2.0.0');
 
 program
   .command('ui')
-  .description('Launch the Clatter Code Graphical TUI')
+  .description('Launch the Clatter Code Agentic TUI')
   .action(() => {
     startTUI();
+  });
+
+program
+  .command('agent')
+  .description('Run a task using the Clatter Agent')
+  .argument('<task>', 'The task for the agent to perform')
+  .action(async (task) => {
+    const { ClatterAgent } = await import('../src/core/agent.js');
+    const agent = new ClatterAgent();
+    await agent.run(task);
+  });
+
+program
+  .command('uninstall')
+  .description('Uninstall Clatter Code from your system')
+  .action(async () => {
+    const { execa } = await import('execa');
+    console.log(chalk.red('Running uninstaller...'));
+    await execa('./uninstall.sh', { stdio: 'inherit' });
   });
 
 program
